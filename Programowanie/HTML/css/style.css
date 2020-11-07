@@ -1,0 +1,7 @@
+table, tr, td, th {
+  border: solid 1px red;
+  border-collapse: collapse;
+  padding: 10px;
+  text-align: center;
+}
+/*# sourceMappingURL=style.css.map */
