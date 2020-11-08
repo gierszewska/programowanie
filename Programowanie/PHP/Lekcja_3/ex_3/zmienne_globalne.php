@@ -9,8 +9,8 @@ Wartość początkowa wyniku wynosi 0.
  -->
 <?php
 session_start();
-if (!isset($_SESSION['result'])) {
-$_SESSION['result'] = 0;
+if (!isset($_SESSION['ans'])) {
+$_SESSION['ans'] = 0;
 }
 ?>
 
@@ -27,13 +27,17 @@ $_SESSION['result'] = 0;
   <form name="form1" method="POST">
 
     <label for="liczba">Liczba:</label>
-    <input type="number" name="liczba" value="0"><br><br>
+    <input type="number" name="liczba" value="0" step="0.01"><br><br>
 
     <label for="radio">Rodzaj działania:</label><br>
     <label for="dodawanie">Dodawanie</label>
     <input type="radio" name="metoda" value="add" checked><br>
     <label for="odejmowanie">Odejmowanie</label>
-    <input type="radio" name="metoda" value="sub"><br><br>
+    <input type="radio" name="metoda" value="sub"> <br>
+    <label for="mnożenie">Mnożenie</label>
+    <input type="radio" name="metoda" value="multiply" checked><br>
+    <label for="dzielenie">Dzielenie</label>
+    <input type="radio" name="metoda" value="divide"><br><br>
     <?php
     function add(int $num1,int $num2)
     {
@@ -46,17 +50,55 @@ $_SESSION['result'] = 0;
         $num1-=$num2;
         return $num1;
     }
+
+    function multiply(int $num1,int $num2)
+    {
+        $num1*=$num2;
+        return $num1;
+    }
+
+    function divide(int $num1,int $num2)
+    {
+        $num1/=$num2;
+        return $num1;
+    }
+
     $ans = 0;
+    //   if ( $ans !== 0) {
+    //   $nowa_zmienna = $ans + $number;
+    //   echo $nowa_zmienna;
+    // } else {
+    //   $ans = 0;
+    // }
+
+
     if (isset($_POST['button'])) {
       $num = $_POST['liczba'];
+
+
+
+
 
       switch ($_POST['metoda']) {
         case 'add':
                 $ans = add($ans,$num);
                 $ans = number_format($ans, 2, ',', ' ');
+              // $nowa_zmienna = add($ans,$num);
+              // $nowa_zmienna = number_format($ans, 2, ',', ' ');
+
                 break;
         case 'sub':
                 $ans = sub($ans,$num);
+                $ans = number_format($ans, 2, ',', ' ');
+                break;
+
+        case 'multiply':
+                $ans = multiply($ans,$num);
+                $ans = number_format($ans, 2, ',', ' ');
+                break;
+
+        case 'divide':
+                $ans = divide($ans,$num);
                 $ans = number_format($ans, 2, ',', ' ');
                 break;
         default:
@@ -65,7 +107,8 @@ $_SESSION['result'] = 0;
       }
 
     }
-
+// $nowa_zmienna = $ans + $number;
+//  echo $nowa_zmienna;
   ?>
 
     <label for="wynik">Wynik:</label>
